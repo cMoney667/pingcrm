@@ -11,6 +11,9 @@
 |
 */
 
+use App\Models\Account;
+use App\Models\User;
+
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\LazilyRefreshDatabase::class)
     ->in('Feature');
@@ -41,7 +44,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function login($user = null)
 {
-    // ..
+    return test()->actingAs($user ?? User::factory(['account_id' => Account::create(['name' => 'Acme Corporation'])->id,])->create());
 }
